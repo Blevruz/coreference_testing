@@ -3,7 +3,7 @@ import coreferee
 import gap_coref_eval
 import os
 
-class SpaCyCorefEngine(gap_coref_eval.CorefEngine):
+class SpaCyCorefEngine(gap_coref_eval.DummyCorefEngine):
     def __init__(self, name="SpaCy", model="en_core_web_sm"):
         self.name=name+"_"+model
         self.nlp = spacy.load(model)

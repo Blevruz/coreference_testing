@@ -11,7 +11,7 @@ from constants import PRONOUNS
 from constants import SYSTEM_FIELDNAMES
 
 # Generic coreference engine
-class CorefEngine:
+class DummyCorefEngine:
     def __init__(self, name="prototype"):
         self.name=name
 
@@ -55,6 +55,6 @@ def test_engine(coref_engine, file):
     return score
 
 if __name__ == '__main__':
-    ce = CorefEngine()
+    ce = DummyCorefEngine()
     print(test_engine(ce, os.getcwd()+"/modules/gap-coreference/gap-development.tsv"))
 

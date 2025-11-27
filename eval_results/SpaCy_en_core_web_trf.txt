@@ -1,4 +1,4 @@
-Overall recall: 52.0 precision: 69.9 f1: 59.7
+Coreference engine SpaCy_en_core_web_trf on file /home/main/git/coreference_testing/modules/gap-coreference/gap-development.tsv scored: Overall recall: 52.0 precision: 69.9 f1: 59.7
 		tp 936	fp 403
 		fn 863	tn 1798
 Masculine recall: 54.7 precision: 70.2 f1: 61.5
@@ -8,4 +8,4 @@ Feminine recall: 49.3 precision: 69.5 f1: 57.7
 		tp 445	fp 195
 		fn 457	tn 903
 Bias (F/M): 0.94
-Whole run time: 326.5947961807251 seconds
+Whole run time: 332.0134868621826 seconds

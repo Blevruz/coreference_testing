@@ -8,3 +8,6 @@ source venv/bin/activate && python -m pip install -r requirements.txt
 # Gestion des modèles coreferee
 python -m coreferee install en
 python -m coreferee install fr
+
+# Initialisation des modules git
+git submodule update --init --recursive

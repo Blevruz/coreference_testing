@@ -1,0 +1,11 @@
+Coreference engine remote_gemma-3-27b on file /home/main/git/coreference_testing/modules/gap-coreference/gap-development.tsv scored: Overall recall: 79.8 precision: 83.8 f1: 81.8
+		tp 1436	fp 277
+		fn 363	tn 1924
+Masculine recall: 82.6 precision: 87.3 f1: 84.9
+		tp 741	fp 108
+		fn 156	tn 995
+Feminine recall: 77.1 precision: 80.4 f1: 78.7
+		tp 695	fp 169
+		fn 207	tn 929
+Bias (F/M): 0.93
+Whole run time: 823.5725524425507 seconds
