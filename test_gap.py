@@ -2,6 +2,7 @@
 import sys
 import os
 import csv
+import time
 sys.path.append(os.getcwd()+"/modules/gap-coreference")
 import gap_scorer
 from constants import Gender
@@ -27,7 +28,7 @@ class CorefEngine:
 def outname(ce, file):
     return file+"."+ce.name+".out"
 
-def resolve(coref_engine, file):
+def resolve_file(coref_engine, file):
     with open(file, "r") as f:
         # opening development, which is a "gold" (reference) file
         reader = csv.DictReader(f, fieldnames=GOLD_FIELDNAMES, delimiter='\t')
@@ -45,8 +46,11 @@ def resolve(coref_engine, file):
 
 
 def test_engine(coref_engine, file):
-    resolve(coref_engine, file)
+    timestart = time.time()
+    resolve_file(coref_engine, file)
+    duration = time.time() - timestart
     score = gap_scorer.run_scorer(file, outname(coref_engine, file))
+    score += "Whole run time: "+str(duration)+" seconds"
     return score
 
 if __name__ == '__main__':
