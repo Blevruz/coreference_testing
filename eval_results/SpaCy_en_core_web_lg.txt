@@ -1,0 +1,11 @@
+Overall recall: 49.0 precision: 66.1 f1: 56.3
+		tp 881	fp 452
+		fn 918	tn 1749
+Masculine recall: 51.4 precision: 68.7 f1: 58.8
+		tp 461	fp 210
+		fn 436	tn 893
+Feminine recall: 46.6 precision: 63.4 f1: 53.7
+		tp 420	fp 242
+		fn 482	tn 856
+Bias (F/M): 0.91
+Whole run time: 144.74252319335938 seconds
