@@ -1,9 +1,9 @@
 import spacy
 import coreferee
-import test_gap
+import gap_coref_eval
 import os
 
-class SpaCyCorefEngine(test_gap.CorefEngine):
+class SpaCyCorefEngine(gap_coref_eval.CorefEngine):
     def __init__(self, name="SpaCy", model="en_core_web_sm"):
         self.name=name+"_"+model
         self.nlp = spacy.load(model)
@@ -59,13 +59,13 @@ def resolve_string(coref_engine, text: str):
 
 if __name__ == "__main__":
     ce = SpaCyCorefEngine(model="en_core_web_sm")
-    eval_sm = test_gap.test_engine(ce, os.getcwd()+"/modules/gap-coreference/gap-development.tsv")
+    eval_sm = gap_coref_eval.test_engine(ce, os.getcwd()+"/modules/gap-coreference/gap-development.tsv")
     open(os.getcwd()+"/eval_results/"+ce.name+".txt", "w").write(str(eval_sm))
     ce = SpaCyCorefEngine(model="en_core_web_lg")
-    eval_lg = test_gap.test_engine(ce, os.getcwd()+"/modules/gap-coreference/gap-development.tsv")
+    eval_lg = gap_coref_eval.test_engine(ce, os.getcwd()+"/modules/gap-coreference/gap-development.tsv")
     open(os.getcwd()+"/eval_results/"+ce.name+".txt", "w").write(str(eval_lg))
     ce = SpaCyCorefEngine(model="en_core_web_trf")
-    eval_trf = test_gap.test_engine(ce, os.getcwd()+"/modules/gap-coreference/gap-development.tsv")
+    eval_trf = gap_coref_eval.test_engine(ce, os.getcwd()+"/modules/gap-coreference/gap-development.tsv")
     open(os.getcwd()+"/eval_results/"+ce.name+".txt", "w").write(str(eval_trf))
 
     print("Evaluation of en_core_web_sm:", eval_sm)

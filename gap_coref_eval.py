@@ -49,7 +49,8 @@ def test_engine(coref_engine, file):
     timestart = time.time()
     resolve_file(coref_engine, file)
     duration = time.time() - timestart
-    score = gap_scorer.run_scorer(file, outname(coref_engine, file))
+    score = "Coreference engine "+coref_engine.name+" on file "+file+" scored: "
+    score += gap_scorer.run_scorer(file, outname(coref_engine, file))
     score += "Whole run time: "+str(duration)+" seconds"
     return score
 
