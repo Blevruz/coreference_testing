@@ -27,7 +27,7 @@ class LLMCorefEngine(gap_coref_eval.DummyCorefEngine):
         else:
             print(f"Model {model_rq} not found")
             print("Available models: ")
-            print(self.models)
+            print(models)
             exit(1)
         self.name=name
         self.temperature=temperature
