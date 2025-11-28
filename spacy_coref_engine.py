@@ -9,7 +9,7 @@ class SpaCyCorefEngine(gap_coref_eval.DummyCorefEngine):
         self.nlp = spacy.load(model)
         self.nlp.add_pipe("coreferee")
 
-    def resolve_coref(self, text: str, pronoun: str, p_offset: int, cand_a: str, cand_b: str):
+    def resolve_coref(self, text: str, pronoun: str, p_offset: int, cand_a: str, cand_b: str, verbose=False):
         doc = self.nlp(text)
         chains = doc._.coref_chains
 
@@ -35,15 +35,17 @@ class SpaCyCorefEngine(gap_coref_eval.DummyCorefEngine):
                     # referee only returns one word per resolution, so we need to
                     # check if the resolution is a substring of the candidate
                     if str_resolved in str(cand_a):
-                        print("[DEBUG] Matched cand_a", cand_a, "to", str_resolved)
+                        if verbose:
+                            print("[DEBUG] Matched cand_a", cand_a, "to", str_resolved)
                         returnval = (True, False)
                         # only one resolution per call so we can return
                         return returnval
                     elif str_resolved in str(cand_b):
-                        print("[DEBUG] Matched cand_b", cand_b, "to", str_resolved)
+                        if verbose:
+                            print("[DEBUG] Matched cand_b", cand_b, "to", str_resolved)
                         returnval = (False, True)
                         return returnval
-                    else:
+                    elif verbose:
                         print("[DEBUG] Found no match for", str_resolved, "with candidates", cand_a,",", cand_b)
         return returnval
 
@@ -59,13 +61,13 @@ def resolve_string(coref_engine, text: str):
 
 if __name__ == "__main__":
     ce = SpaCyCorefEngine(model="en_core_web_sm")
-    eval_sm = gap_coref_eval.test_engine(ce, os.getcwd()+"/modules/gap-coreference/gap-development.tsv")
+    eval_sm = gap_coref_eval.test_engine(ce, os.getcwd()+"/modules/gap-coreference/gap-development.tsv", verbose=True)
     open(os.getcwd()+"/eval_results/"+ce.name+".txt", "w").write(str(eval_sm))
     ce = SpaCyCorefEngine(model="en_core_web_lg")
-    eval_lg = gap_coref_eval.test_engine(ce, os.getcwd()+"/modules/gap-coreference/gap-development.tsv")
+    eval_lg = gap_coref_eval.test_engine(ce, os.getcwd()+"/modules/gap-coreference/gap-development.tsv", verbose=True)
     open(os.getcwd()+"/eval_results/"+ce.name+".txt", "w").write(str(eval_lg))
     ce = SpaCyCorefEngine(model="en_core_web_trf")
-    eval_trf = gap_coref_eval.test_engine(ce, os.getcwd()+"/modules/gap-coreference/gap-development.tsv")
+    eval_trf = gap_coref_eval.test_engine(ce, os.getcwd()+"/modules/gap-coreference/gap-development.tsv", verbose=True)
     open(os.getcwd()+"/eval_results/"+ce.name+".txt", "w").write(str(eval_trf))
 
     print("Evaluation of en_core_web_sm:", eval_sm)

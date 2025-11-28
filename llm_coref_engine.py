@@ -33,7 +33,8 @@ class LLMCorefEngine(gap_coref_eval.DummyCorefEngine):
         self.temperature=temperature
         self.max_tokens=max_tokens_per_call
 
-    def prompt(self, text, pronoun, p_offset):
+    def prompt(self, text, pronoun, p_offset, verbose=False):
+
         boilerplate_headers = {
             "Content-Type": "application/json"
         }
@@ -43,10 +44,12 @@ class LLMCorefEngine(gap_coref_eval.DummyCorefEngine):
         {text}
         ```
         In the previous text, to whom or what does the pronoun \"{pronoun}\" (at offset {p_offset}) refer?
-        Answer with only a name.
+        Your answer should end with a colon and the name of the entity.
         """
-        #print(f"Sending prompt: {prompt}")
-        #print(f"Sending request to {self.address}/v1/chat/completions")
+        if verbose:
+            print(f"[DEBUG] Sending prompt: {prompt}")
+            print(f"[DEBUG] Sending request to {self.address}/v1/chat/completions")
+
         req = requests.post(self.address + "/v1/chat/completions", 
                             headers=boilerplate_headers, 
                             json={
@@ -56,14 +59,15 @@ class LLMCorefEngine(gap_coref_eval.DummyCorefEngine):
                                 "temperature": self.temperature,
                             },
                             timeout=60)
-        #print(self.address+"/v1/chat/completions", req.text)
-        return req.json()["choices"][0]["message"]["content"]
+        if verbose:
+            print(f"[DEBUG] Received response: {req.text}")
+        return req.json()["choices"][0]["message"]["content"].split(":")[-1].strip()
 
         
 
     # LLM-based coreference resolution approach: question-answering approach
-    def resolve_coref(self, text: str, pronoun: str, p_offset: int, cand_a: str, cand_b: str):
-        reply = self.prompt(text, pronoun, p_offset)
+    def resolve_coref(self, text: str, pronoun: str, p_offset: int, cand_a: str, cand_b: str, verbose=False):
+        reply = self.prompt(text, pronoun, p_offset, verbose)
         return (reply in cand_a or cand_a in reply, 
                 reply in cand_b or cand_b in reply)
 
@@ -74,6 +78,6 @@ if __name__ == "__main__":
     evals = []
     for setup in secrets:
         lce = LLMCorefEngine(setup["name"], setup["model"], setup["address"])
-        evals.append(gap_coref_eval.test_engine(lce, os.getcwd()+"/modules/gap-coreference/gap-development.tsv"))
+        evals.append(gap_coref_eval.test_engine(lce, os.getcwd()+"/modules/gap-coreference/gap-development.tsv", verbose=True))
         open(os.getcwd()+"/eval_results/"+lce.name+".txt", "w").write(str(evals[-1]))
         #lce.prompt("I have pondered the question you haved asked, the way you asked it, and what you are really asking. Your question does have an answer, but I don't think I should answer it.", "it", 169)
