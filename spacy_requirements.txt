@@ -8,6 +8,7 @@ coreferee==1.4.1
 coreferee-model-en @ https://github.com/richardpaulhudson/coreferee/raw/master/models/coreferee_model_en.zip
 coreferee-model-fr @ https://github.com/richardpaulhudson/coreferee/raw/master/models/coreferee_model_fr.zip
 cymem==2.0.13
+emoji==2.15.0
 en-core-web-lg @ https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.5.0/en_core_web_lg-3.5.0-py3-none-any.whl
 en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0-py3-none-any.whl
 en-core-web-trf @ https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.5.0/en_core_web_trf-3.5.0-py3-none-any.whl
@@ -45,6 +46,7 @@ packaging==25.0
 pathlib_abc==0.1.1
 pathy==0.11.0
 preshed==3.0.12
+protobuf==6.33.1
 pydantic==1.10.24
 PyYAML==6.0.3
 regex==2025.11.3
@@ -57,6 +59,7 @@ spacy-legacy==3.0.12
 spacy-loggers==1.0.5
 spacy-transformers==1.2.5
 srsly==2.5.2
+stanza==1.11.0
 sympy==1.14.0
 thinc==8.1.12
 tokenizers==0.13.3

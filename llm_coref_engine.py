@@ -80,4 +80,3 @@ if __name__ == "__main__":
         lce = LLMCorefEngine(setup["name"], setup["model"], setup["address"])
         evals.append(gap_coref_eval.test_engine(lce, os.getcwd()+"/modules/gap-coreference/gap-development.tsv", verbose=True))
         open(os.getcwd()+"/eval_results/"+lce.name+".txt", "w").write(str(evals[-1]))
-        #lce.prompt("I have pondered the question you haved asked, the way you asked it, and what you are really asking. Your question does have an answer, but I don't think I should answer it.", "it", 169)

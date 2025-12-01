@@ -29,11 +29,11 @@ def outname(ce, file):
     return file+"."+ce.name+".out"
 
 def resolve_file(coref_engine, file, verbose = False):
+    startstring = "Progress: ["
     if verbose:
         print("Resolving file "+file)
         # dont be afraid of the funny ansi escape sequences
-        startstring = "Progress: ["
-        print(startstring+"\033[101C]\033[101D")
+        print(f"{startstring}\033[{80-len(startstring)}C]\033[{80-len(startstring)}D")
         #then getting the cursor back to the start
     with open(file, "r") as f:
         if verbose:
@@ -52,8 +52,8 @@ def resolve_file(coref_engine, file, verbose = False):
             writer.writerow({"ID": row['ID'], "A-coref": result[0], "B-coref": result[1]})
             if verbose:
                 index += 1
-                if int(index/nb_lines*100) % 1 == 0:
-                    print(f"\033[1A\033[{int(index/nb_lines*100)+len(startstring)}C=")
+                if int(index/nb_lines*(80-len(startstring))) % 1 == 0:
+                    print(f"\033[1A\033[{int(index/nb_lines*(80-len(startstring)))+len(startstring)}C=")
                     time.sleep(0.1)
         output_file.close()
         f.close()
